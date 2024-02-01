@@ -34,19 +34,34 @@ const App: React.FC = () => {
           />
         </div>
 
-        <div className={styles.articles}>
-         {
-          articles && articles.length > 0 && articles.map((article, index) => {
-            return (
-              <ArticleCardComponent
-              key={index}
-                image={article.image}
-                title={article.title}
-                shortText={article.shortText}
-              />
-            );
-          })
-         }
+        <div className={styles.container}>
+          <div className={styles.articles}>
+            {articles &&
+              articles.length > 0 &&
+              articles.map((article, index) => {
+                return (
+                  <ArticleCardComponent
+                    key={index}
+                    image={article.image}
+                    title={article.title}
+                    shortText={article.shortText}
+                  />
+                );
+              })}
+          </div>
+
+          <div className={styles.recent__searches}>
+            <h2>Recent Searches</h2>
+
+            <ul className={styles.list}>
+              <li onClick={() => setQuery("One")} tabIndex={0} role="button">
+                One
+              </li>
+              <li onClick={() => setQuery("Two Search")} tabIndex={0} role="button">
+                Two Search
+              </li>
+            </ul>
+          </div>
         </div>
       </main>
     </div>
