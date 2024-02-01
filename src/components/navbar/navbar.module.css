@@ -1,0 +1,14 @@
+.navbar {
+    border-bottom: 1px solid #bababa;
+    padding: 24px 8vw;
+}
+
+.logo h2 {
+    font-size: 2.4rem;
+    font-weight: 500;
+}
+
+.logo h2 span {
+    color: orangered;
+    font-weight: 600;
+}
