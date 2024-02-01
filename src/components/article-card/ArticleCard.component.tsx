@@ -1,11 +1,29 @@
-import React from 'react'
+import React from "react";
 
-import styles from './article.module.css'
+import styles from "./article.module.css";
 
-const ArticleCardComponent = () => {
+type ArticleCardProps = {
+  image: string;
+  title: string;
+  shortText: string;
+};
+
+const ArticleCardComponent: React.FC<ArticleCardProps> = ({
+  image,
+  title,
+  shortText,
+}) => {
   return (
-    <div>ArticleCardComponent</div>
-  )
-}
+    <article tabIndex={0} role="link" className={styles.article}>
+      <div className={styles.image}>
+        <img src={image} alt={title} width="100%" height={"100%"} />
+      </div>
+      <div className={styles.content}>
+        <h3>{title}</h3>
+        <p>{shortText}</p>
+      </div>
+    </article>
+  );
+};
 
-export default ArticleCardComponent
+export default ArticleCardComponent;

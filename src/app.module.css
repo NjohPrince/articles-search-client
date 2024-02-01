@@ -1,5 +1,10 @@
 .main {
   padding: 24px 8vw;
+  display: flex;
+  display: -ms-flexbox;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  gap: 24px;
 }
 
 .search {
@@ -37,4 +42,11 @@
 
 .search input:focus {
   border: 1px solid #676767;
+}
+
+.articles {
+    display: grid;
+    display: -ms-grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
 }
