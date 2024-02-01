@@ -18,6 +18,14 @@ const App: React.FC = () => {
     debouncedSearch(newQuery);
   };
 
+  const highlightTitle = (title: string) => {
+    const regex = new RegExp(query, "gi");
+    return title.replace(
+      regex,
+      (match) => `<span class=${styles.highlight}>${match}</span>`
+    );
+  };
+
   return (
     <div className="App">
       <NavbarComponent />
@@ -41,10 +49,12 @@ const App: React.FC = () => {
               articles.map((article, index) => {
                 return (
                   <ArticleCardComponent
+                  hightlightTitle={highlightTitle}
                     key={index}
                     image={article.image}
                     title={article.title}
                     shortText={article.shortText}
+                    loading={false}
                   />
                 );
               })}
@@ -57,7 +67,11 @@ const App: React.FC = () => {
               <li onClick={() => setQuery("One")} tabIndex={0} role="button">
                 One
               </li>
-              <li onClick={() => setQuery("Two Search")} tabIndex={0} role="button">
+              <li
+                onClick={() => setQuery("Two Search")}
+                tabIndex={0}
+                role="button"
+              >
                 Two Search
               </li>
             </ul>

@@ -1,5 +1,5 @@
 .main {
-  padding: 24px 8vw;
+  padding: 24px 4vw;
   display: flex;
   display: -ms-flexbox;
   flex-direction: column;
@@ -67,6 +67,7 @@
   -o-border-radius: 4px;
   padding: 8px;
   width: 100%;
+  height: fit-content;
   max-width: 270px;
 }
 
@@ -105,6 +106,11 @@
   font-size: 1.4rem;
   font-weight: 400;
   cursor: pointer;
+}
+
+.highlight {
+    color: orangered;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {

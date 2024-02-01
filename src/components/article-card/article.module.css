@@ -28,6 +28,10 @@
   overflow: hidden;
 }
 
+.article.loading .image {
+  background: rgba(0, 0, 0, 0.15);
+}
+
 .image img {
   object-fit: cover;
   -o-object-fit: cover;
@@ -44,6 +48,28 @@
   margin-bottom: 10px;
   font-weight: 600;
   line-height: 145%;
+}
+
+.content .h3 {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  height: 20px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.content .p {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  height: 40px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
 }
 
 .content p {
