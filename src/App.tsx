@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./app.module.css";
 
-import { debouncedSearch } from "./services/search.service";
+import { debouncedSearch, getSearches } from "./services/search.service";
 import NavbarComponent from "./components/navbar/Navbar.component";
 import SearchIcon from "./icons/Search.icon";
 import ArticleCardComponent from "./components/article-card/ArticleCard.component";
@@ -10,12 +10,21 @@ import { articles } from "./repository/articles";
 
 const App: React.FC = () => {
   const [query, setQuery] = useState<string>("");
+  const [searches, setSearches] = useState<
+    {
+      clientIP: string;
+      search: string;
+    }[]
+  >([]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newQuery = event.target.value;
     setQuery(newQuery);
 
-    debouncedSearch(newQuery);
+    const searches = await debouncedSearch(newQuery);
+    setSearches(searches);
   };
 
   const highlightTitle = (title: string) => {
@@ -25,6 +34,13 @@ const App: React.FC = () => {
       (match) => `<span class=${styles.highlight}>${match}</span>`
     );
   };
+
+  useEffect(() => {
+    (async () => {
+      const searches = await getSearches();
+      setSearches(searches);
+    })();
+  }, []);
 
   return (
     <div className="App">
@@ -49,7 +65,7 @@ const App: React.FC = () => {
               articles.map((article, index) => {
                 return (
                   <ArticleCardComponent
-                  hightlightTitle={highlightTitle}
+                    hightlightTitle={highlightTitle}
                     key={index}
                     image={article.image}
                     title={article.title}
@@ -64,16 +80,20 @@ const App: React.FC = () => {
             <h2>Recent Searches</h2>
 
             <ul className={styles.list}>
-              <li onClick={() => setQuery("One")} tabIndex={0} role="button">
-                One
-              </li>
-              <li
-                onClick={() => setQuery("Two Search")}
-                tabIndex={0}
-                role="button"
-              >
-                Two Search
-              </li>
+              {searches &&
+                searches.length > 0 &&
+                searches.map((search, index) => {
+                  return (
+                    <li
+                      onClick={() => setQuery(search.search)}
+                      tabIndex={0}
+                      role="button"
+                      key={index}
+                    >
+                      {search.search}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </div>

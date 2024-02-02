@@ -1,4 +1,5 @@
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import styles from "./article.module.css";
 
@@ -18,12 +19,30 @@ const ArticleCardComponent: React.FC<ArticleCardProps> = ({
   loading
 }) => {
   return (
-    <article tabIndex={0} role="link" className={`${styles.article} ${loading ? styles.loading : ''}`}>
+    <article
+      tabIndex={0}
+      role="link"
+      className={`${styles.article} ${loading ? styles.loading : ""}`}
+    >
       <div className={styles.image}>
-        {!loading ? <img src={image} alt={title} width="100%" height={"100%"} /> : ''}
+        {!loading ? (
+          <LazyLoadImage
+            effect="blur"
+            width="100%"
+            height="100%"
+            src={image}
+            alt={title}
+          />
+        ) : (
+          ""
+        )}
       </div>
       <div className={styles.content}>
-        {!loading ? <h3 dangerouslySetInnerHTML={{ __html: hightlightTitle(title) }}></h3> : <h3 className={styles.h3}></h3>}
+        {!loading ? (
+          <h3 dangerouslySetInnerHTML={{ __html: hightlightTitle(title) }}></h3>
+        ) : (
+          <div className={styles.h3}></div>
+        )}
         {!loading ? <p>{shortText}</p> : <p className={styles.p}></p>}
       </div>
     </article>
