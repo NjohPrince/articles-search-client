@@ -16,6 +16,13 @@ const App: React.FC = () => {
       search: string;
     }[]
   >([]);
+  const [newArticles, setNewArticles] = useState<
+    {
+      image: string;
+      title: string;
+      shortText: string;
+    }[]
+  >(articles);
 
   const handleInputChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -23,8 +30,16 @@ const App: React.FC = () => {
     const newQuery = event.target.value;
     setQuery(newQuery);
 
+    const filteredArticles = articles.filter(
+      (article) =>
+        new RegExp(newQuery, "i").test(article.title) ||
+        new RegExp(newQuery, "i").test(article.shortText)
+    );
+
     const searches = await debouncedSearch(newQuery);
+
     setSearches(searches);
+    setNewArticles(filteredArticles.length > 0 ? filteredArticles : articles);
   };
 
   const highlightTitle = (title: string) => {
@@ -60,9 +75,9 @@ const App: React.FC = () => {
 
         <div className={styles.container}>
           <div className={styles.articles}>
-            {articles &&
-              articles.length > 0 &&
-              articles.map((article, index) => {
+            {newArticles &&
+              newArticles.length > 0 &&
+              newArticles.map((article, index) => {
                 return (
                   <ArticleCardComponent
                     hightlightTitle={highlightTitle}
