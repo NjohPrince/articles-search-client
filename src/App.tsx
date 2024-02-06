@@ -36,9 +36,17 @@ const App: React.FC = () => {
         new RegExp(newQuery, "i").test(article.shortText)
     );
 
-    const searches = await debouncedSearch(newQuery);
+    const regex = new RegExp(`\\b${newQuery}\\b`, "i");
 
-    setSearches(searches);
+    for (let i = 0; i < searches.length; i++) {
+      if (regex.test(searches[i].search)) {
+        return false;
+      }
+    }
+
+    const searchesResults = await debouncedSearch(newQuery);
+
+    setSearches(searchesResults);
     setNewArticles(filteredArticles.length > 0 ? filteredArticles : articles);
   };
 
